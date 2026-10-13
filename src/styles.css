@@ -202,6 +202,25 @@ select:focus, input:focus { box-shadow: var(--inset), 0 0 0 2px rgba(0, 135, 96,
 .table th { color: var(--muted); font-weight: 700; font-size: 13px; }
 .table .actions { margin: 0; }
 
+/* اجزای تکمیلی */
+.chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.tabs { display: flex; flex-wrap: wrap; gap: 10px; }
+.chip.small, .btn-ghost.small.danger { padding: 4px 12px; font-size: 13px; }
+.btn-ghost.danger { color: var(--danger); }
+.badge.danger { color: var(--danger); }
+.hint { margin-top: -6px; margin-bottom: 14px; }
+.rating { display: flex; align-items: center; flex-wrap: wrap; gap: 8px; }
+.code-box {
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: var(--bg);
+  box-shadow: var(--inset);
+  font-size: 14px;
+}
+.code-box strong { color: var(--green-deep); letter-spacing: 2px; }
+input[type="text"] { width: 100%; }
+.actions input[type="text"] { flex: 1; min-width: 180px; }
+
 /* واکنش‌گرا */
 @media (max-width: 999px) {
   .grid-2 { grid-template-columns: 1fr; }

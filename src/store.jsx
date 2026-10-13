@@ -1,11 +1,13 @@
 import { createContext, useContext, useEffect, useReducer } from 'react';
 import { SEED_REQUESTS, TRANSLATORS } from './data.js';
 
-const KEY = 'hamzaban-state-v1';
+const KEY = 'hamzaban-state-v2';
 
 const initial = {
   requests: SEED_REQUESTS,
   translators: TRANSLATORS,
+  tickets: [],
+  settlements: [],
 };
 
 function load() {
@@ -19,22 +21,27 @@ function load() {
 
 function reducer(state, action) {
   switch (action.type) {
-    case 'create':
+    case 'createRequest':
       return { ...state, requests: [action.request, ...state.requests] };
-    case 'setStatus':
+    case 'patchRequest':
       return {
         ...state,
-        requests: state.requests.map((r) =>
-          r.id === action.id ? { ...r, status: action.status } : r,
-        ),
+        requests: state.requests.map((r) => (r.id === action.id ? { ...r, ...action.patch } : r)),
       };
-    case 'setTranslator':
+    case 'patchTranslator':
       return {
         ...state,
-        translators: state.translators.map((t) =>
-          t.id === action.id ? { ...t, ...action.patch } : t,
-        ),
+        translators: state.translators.map((t) => (t.id === action.id ? { ...t, ...action.patch } : t)),
       };
+    case 'addTicket':
+      return { ...state, tickets: [action.ticket, ...state.tickets] };
+    case 'patchTicket':
+      return {
+        ...state,
+        tickets: state.tickets.map((t) => (t.id === action.id ? { ...t, ...action.patch } : t)),
+      };
+    case 'addSettlement':
+      return { ...state, settlements: [action.settlement, ...state.settlements] };
     case 'reset':
       return initial;
     default:
