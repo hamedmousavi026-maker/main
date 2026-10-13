@@ -27,8 +27,12 @@ def main():
     for filename, _role, title, hash_value in APPS:
         page = re.sub(r"<title>.*?</title>", f"<title>{title}</title>", html, count=1, flags=re.S)
         preset = (
+            # دکمه‌ی تغییر نقش را پنهان می‌کند و آدرس را همیشه روی نقش این فایل نگه می‌دارد
+            "<style>.v2-role-button{display:none!important}</style>"
             "<script>"
-            f"if(location.hash!=='{hash_value}'){{history.replaceState(null,'','{hash_value}');}}"
+            f"(function(){{var h='{hash_value}';"
+            "function fix(){if(location.hash!==h){history.replaceState(null,'',h);}}"
+            "fix();window.addEventListener('hashchange',fix);})();"
             "</script>"
         )
         page = page.replace("<head>", "<head>" + preset, 1)
